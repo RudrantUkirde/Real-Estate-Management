@@ -1,4 +1,4 @@
 export const environment = {
   production:true,
-//   apiUrl: 'https://backend-deploy-8je7.onrender.com/' //Backend URL     
+  apiUrl: 'https://rem-production-server.onrender.com/' //Backend URL     
 };
