@@ -1,0 +1,262 @@
+<div class="flex h-screen overflow-hidden">
+
+      <!-- Mobile Top Bar -->
+      <div class="lg:hidden flex items-center justify-between px-4 py-3 bg-gray-900 text-white border-b border-gray-800 w-full fixed z-30">
+        <button (click)="toggleMobileMenu()" aria-label="Toggle menu" class="p-2 rounded hover:bg-gray-800">
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="flex items-center space-x-2">
+          <img src="/Images/Real-Estate-Imge.png" alt="Logo" class="w-8 h-8" />
+          <span class="font-semibold text-white">REM</span>
+        </div>
+        <span></span>
+      </div>
+
+      <!--Default SideBar-->
+      @if (!isUserLoggedIn && !isAdminLoggedIn) {
+        <app-sidebar class="hidden lg:block w-82 shrink-0 border border-r-gray-200"></app-sidebar>
+      }
+
+      <!--User Sidebar-->
+      @if(isUserLoggedIn){
+
+        <div class="hidden lg:block w-82 shrink-0 border border-r-gray-200">
+        <!-- Sidebar Container -->
+        <div class="flex flex-col h-screen px-4 py-6 space-y-6 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
+          <!-- Logo Section -->
+          <div class="flex flex-col items-center space-y-1">
+            <img src="/Images/Real-Estate-Imge.png" alt="Logo" class="w-36 h-auto" />
+            <h1 class="text-lg font-semibold -mt-1 text-blue-600 dark:text-blue-300">
+              Real Estate Management
+            </h1>
+          </div>
+
+          <!-- Divider -->
+          <hr class="border-gray-300 dark:border-gray-700" />
+
+          <!-- Navigation Links -->
+          <nav class="flex-1 space-y-2">
+            <a routerLink="/map" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-map text-blue-400"></i>
+              <span>Map</span>
+            </a>
+            <a routerLink="/properties/properties-page" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-building"></i>
+              <span>Properties</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Mortgage Calc</span>
+            </a>
+            <a routerLink="/settings" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-cog"></i>
+              <span>Settings</span>
+            </a>
+          </nav>
+
+          <!-- Divider -->
+          <hr class="border-gray-300 dark:border-gray-700" />
+
+          <!-- Footer Links -->
+          <div class="space-y-2">
+            <a routerLink="/about/about-page" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About</span>
+            </a>
+            <a [routerLink]="[`/profile/profile-page`,userId]" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-pen"></i>
+              <span>Profile</span>
+            </a>
+            <a (click)="openLogoutModal()" routerLinkActive="active"
+               class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-sign-in-alt"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+        </div>
+
+        
+      }
+
+      <!--Admin Sidebar-->
+      @if(isAdminLoggedIn){
+
+        <div class="hidden lg:block w-82 shrink-0 border border-r-gray-200" >
+        
+        <!-- Sidebar Container -->
+        <div class="flex flex-col h-screen px-4 py-6 space-y-6 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
+          <!-- Logo Section -->
+          <div class="flex flex-col items-center space-y-1">
+            <img src="/Images/Real-Estate-Imge.png" alt="Logo" class="w-36 h-auto" />
+            <h1 class="text-lg font-semibold -mt-1 text-blue-600 dark:text-blue-300">
+              Real Estate Management
+            </h1>
+          </div>
+
+          <!-- Divider -->
+          <hr class="border-gray-300 dark:border-gray-700" />
+
+          <!-- Navigation Links -->
+          <nav class="flex-1 space-y-2">
+            <a routerLink="/map" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-map text-blue-400"></i>
+              <span>Map</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-building"></i>
+              <span>Properties</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Mortgage Calc</span>
+            </a>
+            <a routerLink="/settings" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-cog"></i>
+              <span>Settings</span>
+            </a>
+          </nav>
+
+          <!-- Divider -->
+          <hr class="border-gray-300 dark:border-gray-700" />
+
+          <!-- Footer Links -->
+          <div class="space-y-2">
+            <a routerLink="/about/about-page" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>About</span>
+            </a>
+            <a routerLink="/profile" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-pen"></i>
+              <span>Profile</span>
+            </a>
+            <a (click)="openLogoutModal()" routerLinkActive="active"
+               class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+              <i class="fa-solid fa-sign-in-alt"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+        </div>
+
+      }
+
+    <!-- Main content (Map + List of Properties) -->
+    <!-- <div class="flex-1 min-h-screen overflow-hidden bg-[#23272e]">
+      <router-outlet></router-outlet>
+    </div> -->
+    <div
+      class="flex-1 min-h-screen bg-white dark:bg-[#23272e] pt-14 lg:pt-0"
+      [class.overflow-hidden]="!isAboutPage"
+      [class.overflow-auto]="isAboutPage">
+      <router-outlet></router-outlet>
+    </div>
+</div>
+
+<!-- Mobile Drawer for Default Sidebar -->
+<div class="lg:hidden fixed inset-0 z-40" *ngIf="isMobileMenuOpen && (isUserLoggedIn || isAdminLoggedIn)">
+  <div class="absolute inset-0 bg-black/50" (click)="closeMobileMenu()"></div>
+  <div class="relative bg-gray-100 dark:bg-gray-900 h-full w-80 max-w-[80%] shadow-xl">
+    <div class="flex flex-col h-full px-4 py-6 space-y-6 text-gray-900 dark:text-white">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <img src="/Images/Real-Estate-Imge.png" alt="Logo" class="w-10 h-10" />
+          <h1 class="text-lg font-semibold text-blue-600 dark:text-blue-300">Real Estate Management</h1>
+        </div>
+        <button (click)="closeMobileMenu()" class="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <hr class="border-gray-300 dark:border-gray-700" />
+      <nav class="flex-1 space-y-2">
+        <a routerLink="/map" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-map text-blue-400"></i>
+          <span>Map</span>
+        </a>
+        <a routerLink="/properties/properties-page" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-building"></i>
+          <span>Properties</span>
+        </a>
+        <a routerLink="/settings" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-cog"></i>
+          <span>Settings</span>
+        </a>
+        <a routerLink="/about/about-page" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>About</span>
+        </a>
+      </nav>
+      <hr class="border-gray-300 dark:border-gray-700" />
+      <div class="space-y-2">
+        <a [routerLink]="['/profile/profile-page',userId]" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-pen"></i>
+          <span>Profile</span>
+        </a>
+        <a (click)="openLogoutModal(); closeMobileMenu()" routerLinkActive="active" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-sign-in-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Drawer for User/Admin Sidebar -->
+<div class="lg:hidden fixed inset-0 z-40" *ngIf="isMobileMenuOpen && (!isUserLoggedIn && !isAdminLoggedIn)">
+  <div class="absolute inset-0 bg-black/50" (click)="closeMobileMenu()"></div>
+  <div class="relative bg-gray-100 dark:bg-gray-900 h-full w-80 max-w-[80%] shadow-xl">
+    <div class="flex flex-col h-full px-4 py-6 space-y-6 text-gray-900 dark:text-white">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <img src="/Images/Real-Estate-Imge.png" alt="Logo" class="w-10 h-10" />
+          <h1 class="text-lg font-semibold text-blue-600 dark:text-blue-300">Real Estate Management</h1>
+        </div>
+        <button (click)="closeMobileMenu()" class="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <hr class="border-gray-300 dark:border-gray-700" />
+      <nav class="flex-1 space-y-2">
+        <a routerLink="/map" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-map text-blue-400"></i>
+          <span>Map</span>
+        </a>
+        <a routerLink="/properties/properties-page" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-building"></i>
+          <span>Properties</span>
+        </a>
+        <a routerLink="/settings" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-cog"></i>
+          <span>Settings</span>
+        </a>
+        <a routerLink="/about/about-page" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>About</span>
+        </a>
+      </nav>
+      <hr class="border-gray-300 dark:border-gray-700" />
+      <div class="space-y-2">
+        <a [routerLink]="['/about/about-page']" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>About</span>
+        </a>
+        <a [routerLink]="['/user/register']" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-pen"></i>
+          <span>Register</span>
+        </a>
+        <a [routerLink]="['/user/signin']" (click)="closeMobileMenu()" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+          <i class="fa-solid fa-sign-in-alt"></i>
+          <span>Sign In</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-logout
+  *ngIf="showLogout"
+  (confirm)="logout()"
+  (cancel)="showLogout = false">
+</app-logout>

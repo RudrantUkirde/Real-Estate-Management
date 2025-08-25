@@ -1,0 +1,322 @@
+<!-- Backdrop: blur the page behind, not the card -->
+<div
+  class="fixed inset-0 z-40 bg-black/45 backdrop-blur-md"
+  @backdrop
+  (click)="onClose()"
+></div>
+
+
+<!-- Dialog -->
+<div
+  class="fixed inset-0 z-50 flex items-start md:items-center justify-center p-4 md:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="newPropertyTitle"
+  @card
+>
+
+  <app-snackbar></app-snackbar>
+  <!-- Card: solid background (no backdrop blur), larger base font -->
+  <div class="w-full max-w-4xl rounded-2xl shadow-2xl ring-1 ring-black/10 dark:ring-white/10
+              bg-white dark:bg-zinc-900 text-[15px]">
+    <!-- Header: solid bg (no blur), slightly larger text -->
+    <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-4
+                border-b border-gray-200/70 dark:border-white/10 bg-white dark:bg-zinc-900">
+      <div class="flex items-center gap-3">
+        <div class="inline-flex h-9 w-9 items-center justify-center rounded-xl
+                    bg-blue-600/10 text-blue-600 dark:text-blue-400">
+          <i class="fa fa-home"></i>
+        </div>
+        <div>
+          <h3 id="newPropertyTitle" class="text-[17px] font-semibold text-gray-900 dark:text-gray-100">
+            Add New Property
+          </h3>
+          <p class="text-[12px] text-gray-600 dark:text-gray-400">
+            Fill in the details below—images can be added together.
+          </p>
+        </div>
+      </div>
+
+      <button
+        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition"
+        (click)="onClose()"
+        aria-label="Close"
+      >
+        <i class="fa fa-times text-gray-600 dark:text-gray-300"></i>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="max-h-[72vh] overflow-y-auto px-6 py-6 space-y-8">
+
+        <!-- Basics -->
+        <section>
+          <div class="mb-3 flex items-center justify-between">
+            <h4 class="text-base font-medium text-gray-700 dark:text-gray-300">Basics</h4>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                Title <span class="text-red-500">*</span>
+              </label>
+              <input
+                class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                       bg-gray-50 dark:bg-zinc-800/70
+                       px-3 py-3 text-[15px] outline-none
+                       text-gray-900 dark:text-gray-100
+                       placeholder-gray-400 dark:placeholder-gray-500
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                formControlName="title"
+                placeholder="Agricultural Land Near Lake"
+                [attr.aria-invalid]="form.controls['title'].touched && form.controls['title'].invalid ? 'true' : null"
+                [attr.aria-errormessage]="form.controls['title'].touched && form.controls['title'].invalid ? 'title-error' : null"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                  Property Type <span class="text-red-500">*</span>
+                </label>
+                <select
+                  class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                         bg-gray-50 dark:bg-zinc-800/70
+                         px-3 py-3 text-[15px] outline-none
+                         text-gray-900 dark:text-gray-100
+                         focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  formControlName="propertyType"
+                >
+                  <option value="RESIDENTIAL">RESIDENTIAL</option>
+                  <option value="COMMERCIAL">COMMERCIAL</option>
+                  <option value="INDUSTRIAL">INDUSTRIAL</option>
+                  <option value="LAND">LAND</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                  Transaction <span class="text-red-500">*</span>
+                </label>
+                <select
+                  class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                         bg-gray-50 dark:bg-zinc-800/70
+                         px-3 py-3 text-[15px] outline-none
+                         text-gray-900 dark:text-gray-100
+                         focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  formControlName="transactionType"
+                >
+                  <option value="SALE">SALE</option>
+                  <option value="RENT">RENT</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+              Description <span class="text-red-500">*</span>
+            </label>
+            <textarea
+              rows="3"
+              class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                     bg-gray-50 dark:bg-zinc-800/70
+                     px-3 py-3 text-[15px] outline-none
+                     text-gray-900 dark:text-gray-100
+                     placeholder-gray-400 dark:placeholder-gray-500
+                     focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              formControlName="description"
+              placeholder="Fertile land close to Powai Lake, ideal for small-scale farming or weekend homes."
+            ></textarea>
+            <p class="mt-1 text-[12px] text-gray-600 dark:text-gray-400">
+              Be descriptive—this helps buyers decide faster.
+            </p>
+          </div>
+        </section>
+
+        <!-- Location & Price -->
+        <section>
+          <div class="mb-3">
+            <h4 class="text-base font-medium text-gray-700 dark:text-gray-300">Location & Price</h4>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2">
+              <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                Address <span class="text-red-500">*</span>
+              </label>
+              <input
+                class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                       bg-gray-50 dark:bg-zinc-800/70
+                       px-3 py-3 text-[15px] outline-none
+                       text-gray-900 dark:text-gray-100
+                       placeholder-gray-400 dark:placeholder-gray-500
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                formControlName="address"
+                placeholder="Near Powai Lake, Mumbai, Maharashtra"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                Price <span class="text-red-500">*</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="number"
+                  class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                         bg-gray-50 dark:bg-zinc-800/70
+                         pl-10 px-3 py-3 text-[15px] outline-none
+                         text-gray-900 dark:text-gray-100
+                         placeholder-gray-400 dark:placeholder-gray-500
+                         focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  formControlName="price"
+                  placeholder="8000000"
+                />
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500 dark:text-gray-400">₹</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                Latitude <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number" step="any"
+                class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                       bg-gray-50 dark:bg-zinc-800/70
+                       px-3 py-3 text-[15px] outline-none
+                       text-gray-900 dark:text-gray-100
+                       placeholder-gray-400 dark:placeholder-gray-500
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                formControlName="latitude" placeholder="19.1225"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm mb-1 text-gray-700 dark:text-gray-300">
+                Longitude <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number" step="any"
+                class="w-full rounded-lg border border-gray-200 dark:border-white/10
+                       bg-gray-50 dark:bg-zinc-800/70
+                       px-3 py-3 text-[15px] outline-none
+                       text-gray-900 dark:text-gray-100
+                       placeholder-gray-400 dark:placeholder-gray-500
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                formControlName="longitude" placeholder="72.9045"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Features -->
+        <section>
+          <div class="mb-3">
+            <h4 class="text-base font-medium text-gray-700 dark:text-gray-300">Features</h4>
+          </div>
+
+          <div class="flex gap-2 mb-2 flex-wrap">
+            <span
+              *ngFor="let f of features.controls; let i = index"
+              class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px]
+                     bg-blue-600/10 text-blue-700 dark:bg-blue-500/10 dark:text-blue-300 border border-blue-600/20"
+            >
+              {{ f.value }}
+              <button type="button" (click)="removeFeatureChip(i)" class="hover:opacity-80">
+                <i class="fa fa-times"></i>
+              </button>
+            </span>
+          </div>
+
+          <div class="flex gap-2">
+            <input
+              class="flex-1 rounded-lg border border-gray-200 dark:border-white/10
+                     bg-gray-50 dark:bg-zinc-800/70
+                     px-3 py-3 text-[15px] outline-none
+                     text-gray-900 dark:text-gray-100
+                     placeholder-gray-400 dark:placeholder-gray-500
+                     focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              formControlName="featureInput"
+              placeholder="e.g. Water Access"
+              (keyup.enter)="addFeatureChip(); $event.preventDefault()"
+            />
+            <button
+              type="button"
+              class="px-3 py-3 rounded-lg bg-gray-900 text-white dark:bg-zinc-700 text-[15px] font-medium hover:opacity-95"
+              (click)="addFeatureChip()"
+            >
+              Add
+            </button>
+          </div>
+          <p class="mt-1 text-[12px] text-gray-600 dark:text-gray-400">Press Enter to add a feature.</p>
+        </section>
+
+        <!-- Images -->
+        <section>
+          <div class="mb-3">
+            <h4 class="text-base font-medium text-gray-700 dark:text-gray-300">Images</h4>
+          </div>
+
+          <!-- Dropzone-style uploader -->
+          <label for="imagesInput" class="block">
+            <div
+              class="w-full rounded-xl border-2 border-dashed border-gray-300/70 dark:border-white/15
+                     bg-gray-50/80 dark:bg-zinc-800/70 px-4 py-8 text-center cursor-pointer
+                     hover:bg-gray-100/80 dark:hover:bg-zinc-800 transition"
+            >
+              <div class="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full
+                          bg-blue-600/10 text-blue-600 dark:text-blue-400">
+                <i class="fa fa-cloud-upload-alt"></i>
+              </div>
+              <div class="text-[15px] font-medium text-gray-700 dark:text-gray-200">
+                Click to upload <span class="text-gray-500">or drag and drop</span>
+              </div>
+              <div class="text-[12px] text-gray-600 dark:text-gray-400">
+                PNG, JPG up to ~10MB each • You can select multiple images.
+              </div>
+            </div>
+            <input id="imagesInput" type="file" class="sr-only" (change)="onFilesSelected($event)" multiple accept="image/*" />
+          </label>
+
+          <!-- Selected files -->
+          <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3" *ngIf="selectedFiles.length">
+            <div
+              class="relative rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-zinc-900 p-2 text-[12px]"
+              *ngFor="let f of selectedFiles; let i = index"
+            >
+              <div class="truncate font-medium text-gray-800 dark:text-gray-200">{{ f.name }}</div>
+              <div class="text-gray-500">{{ (f.size/1024 | number:'1.0-0') }} KB</div>
+              <button
+                type="button"
+                class="absolute top-1.5 right-1.5 p-1 rounded hover:bg-gray-100 dark:hover:bg-white/10"
+                (click)="removeFile(i)"
+                title="Remove"
+              >
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer: solid bg (no blur) -->
+      <div class="sticky bottom-0 z-10 flex items-center justify-end gap-3 px-6 py-4
+                  border-t border-gray-200/70 dark:border-white/10 bg-white dark:bg-zinc-900">
+        <button type="button"
+                class="px-4 py-2 rounded-lg border border-gray-300 dark:border-white/15 hover:bg-gray-50 dark:hover:bg-white/10">
+          Cancel
+        </button>
+        <button type="submit"
+                class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-60"
+                [disabled]="form.invalid">
+          Create Property
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!-- Sidebar Container -->
+<div class="flex flex-col h-screen px-4 py-6 space-y-6 bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
+  <!-- Logo Section: hide image on small widths -->
+  <div class="flex flex-col items-center space-y-1">
+    <img src="/Images/Real-Estate-Imge.png" alt="Logo" class="hidden lg:block w-36 h-auto" />
+    <h1 class="text-base lg:text-lg font-semibold -mt-1 text-blue-600 dark:text-blue-300">
+      Real Estate Management
+    </h1>
+  </div>
+
+  <!-- Divider -->
+  <hr class="border-gray-300 dark:border-gray-700" />
+
+  <!-- Navigation Links -->
+  <nav class="flex-1 space-y-2">
+    <a routerLink="/map" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-map text-blue-400"></i>
+      <span>Map</span>
+    </a>
+    <a routerLink="/properties/properties-page" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-building"></i>
+      <span>Properties</span>
+    </a>
+    <a href="#" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-calculator"></i>
+      <span>Mortgage Calc</span>
+    </a>
+    <a routerLink="/settings" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-cog"></i>
+      <span>Settings</span>
+    </a>
+  </nav>
+
+  <!-- Divider -->
+  <hr class="border-gray-300 dark:border-gray-700" />
+
+  <!-- Footer Links -->
+  <div class="space-y-2">
+    <a routerLink="/about/about-page" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>About</span>
+    </a>
+    <a routerLink="/user/register" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-pen"></i>
+      <span>Register</span>
+    </a>
+    <a routerLink="/user/signin" class="flex items-center space-x-3 p-2 rounded-md hover:bg-opacity-20 hover:bg-blue-500 transition">
+      <i class="fa-solid fa-sign-in-alt"></i>
+      <span>Sign In</span>
+    </a>
+  </div>
+</div>

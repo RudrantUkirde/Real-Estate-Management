@@ -1,0 +1,95 @@
+<body class="relative min-h-screen bg-gray-800 flex">
+
+  <!-- Main content area (rest of the space if sidebar exists in main layout) -->
+  <div class="flex-1 flex flex-col min-h-screen">
+
+    <!-- Top bar -->
+    <div class="w-full border-b dark:border-b-gray-500 bg-gray-900 px-4 md:px-8 py-3 md:py-4 shadow z-10">
+      <span class="text-white text-lg md:text-xl font-normal">Register Page</span>
+    </div>
+
+    <!-- Centered Register Card -->
+    <div class="flex-1 flex items-center justify-center px-4">
+      <app-snackbar></app-snackbar>
+      <div class="w-full max-w-sm sm:max-w-md bg-white/90 dark:bg-gray-900 p-6 md:p-8 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 backdrop-blur-sm transition-transform transform hover:scale-101 duration-300">
+        <!--Form Start-->
+        <form [formGroup]="signupForm"
+              class="w-full max-w-sm mx-auto bg-white dark:bg-gray-900 p-4 rounded-md"
+              novalidate>
+          <h1 class="text-xl md:text-2xl font-bold text-center text-indigo-600 dark:text-indigo-400 mb-6">Signup Here!!!!</h1>
+          <!-- Name -->
+          <div class="mb-4 transition-transform transform hover:scale-103 duration-300 group">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:text-base transition-all duration-300">
+              Name
+            </label>
+            <input
+              [ngClass]="{'border-red-500': signupForm.get('username')?.invalid && signupForm.get('username')?.touched}"
+              class="w-full px-3 py-2 text-gray-800 dark:text-white border bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-indigo-500"
+              type="text" formControlName="username" placeholder="username*" required>
+            @if (signupForm.get('username')?.invalid && signupForm.get('username')?.touched) {
+              <div class="text-red-500 text-xs md:text-sm mt-1">*Please Enter Valid Name..</div>
+            }
+          </div>
+          <!-- Email -->
+          <div class="mb-4 transition-transform transform hover:scale-103 duration-300 group">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:text-base transition-all duration-300">
+              Email
+            </label>
+            <input
+              [ngClass]="{'border-red-500': signupForm.get('email')?.invalid && signupForm.get('email')?.touched}"
+              class="w-full px-3 py-2 text-gray-800 dark:text-white border bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-indigo-500"
+              type="email" formControlName="email" placeholder="example@email.com" required email>
+            @if (signupForm.get('email')?.invalid && signupForm.get('email')?.touched) {
+              <div class="text-red-500 text-xs md:text-sm mt-1">*Please Enter Valid Email..</div>
+            }
+          </div>
+          <!-- Password -->
+          <div class="mb-4 transition-transform transform hover:scale-103 duration-300 group">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:text-base transition-all duration-300">
+              Password <i class="fa-solid fa-eye" (click)="togglePasswordVisibility()"></i>
+            </label>
+            <input
+              [ngClass]="{'border-red-500': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}"
+              class="w-full px-3 py-2 text-gray-800 dark:text-white border bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-indigo-500"
+              type="{{ hidePassword ? 'password' : 'text' }}" formControlName="password" placeholder="password*" required minlength="6">
+            @if (signupForm.get('password')?.invalid && signupForm.get('password')?.touched) {
+              <div class="text-red-500 text-xs md:text-sm mt-1">*Password required..</div>
+            }
+          </div>
+          <!-- Confirm Password -->
+          <div class="mb-4 transition-transform transform hover:scale-103 duration-300 group">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:text-base transition-all duration-300">
+              Confirm Password <i class="fa-solid fa-eye" (click)="toggleConfirmPasswordVisibility()"></i>
+            </label>
+            <input
+              [ngClass]="{'border-red-500': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}"
+              class="w-full px-3 py-2 text-gray-800 dark:text-white border bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-indigo-500"
+              type="{{ hideConfirmPassword ? 'password' : 'text' }}" formControlName="confirmPassword" placeholder="confirmPassword*" required minlength="6">
+            @if (signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched) {
+              <div class="text-red-500 text-xs md:text-sm mt-1">* Please confirm Password..</div>
+            }
+          </div>
+          <!-- Register Button -->
+          <button
+            class="w-full mt-6 bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition-transform transform hover:scale-103 duration-300 flex items-center justify-center gap-2"
+            type="submit"
+            [disabled]="isLoading"
+            (click)="onSubmit()">
+            <!-- Spinner -->
+            <div *ngIf="isLoading"
+                class="h-4 w-4 border-2 border-white border-b-transparent rounded-full animate-spin"></div>
+            <!-- Button Text -->
+            <span>{{ isLoading ? 'Registering..' : 'Register' }}</span>
+          </button>
+        </form>
+        <!-- Already have an account? -->
+        <p class="text-center text-sm text-gray-600 dark:text-gray-300 mt-4">
+          Already have an account?
+          <a routerLink="/user/signin" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium transition-colors duration-200">
+            Login here
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>

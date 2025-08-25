@@ -1,0 +1,74 @@
+<app-snackbar></app-snackbar>
+
+<div class="sticky top-0 z-20 flex flex-col w-full h-auto bg-gray-100 dark:bg-gray-900 px-4 md:px-8 pt-4 md:pt-6 pb-3 md:pb-4 border-b dark:border-b-gray-400">
+
+  <!-- Header Row -->
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Properties Page</h2>
+  </div>
+
+  <!-- Search, Filter, Sort Controls -->
+  <div class="flex flex-col gap-4 mb-3">
+    <div class="flex items-center w-full bg-gray-900/60 dark:bg-gray-800 rounded-lg px-3 md:px-4 py-2">
+      <i class="fa fa-search text-gray-400 mr-2"></i>
+      <input
+        type="text"
+        class="bg-transparent outline-none w-full text-gray-200 placeholder-gray-400"
+        placeholder="Search Property"
+        [(ngModel)]="search"
+        (input)="onSearchChange()"
+      />
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="w-full">
+        <div class="text-md text-gray-500 dark:text-gray-300 mr-2 mb-2">Filter:</div>
+        <select class="w-full bg-gray-800 dark:bg-gray-700 text-gray-100 px-3 py-1 rounded" [(ngModel)]="filterType" (change)="onFilterChange($event)">
+          <option>All</option>
+          <option>Residential</option>
+          <option>Commercial</option>
+          <option>Industrial</option>
+          <option>Land</option>
+        </select>
+      </div>
+      <div class="w-full">
+        <!-- <span class="text-sm text-gray-500 dark:text-gray-300 mr-2">Sort by:</span> -->
+        <div class="text-md text-gray-500 dark:text-gray-300 mr-2 mb-2">SortBy:</div>
+        <select class=" w-full bg-gray-800 dark:bg-gray-700 text-gray-100 px-3 py-1 rounded" [(ngModel)]="sortBy" (change)="onSortChange($event)">
+          <option>Latest</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div class="w-full bg-gray-100 dark:bg-gray-800 px-8 pt-4 pb-3 overflow-y-auto"
+      style="height:calc(100vh - 220px)">
+      <app-list-properties [properties]="filteredProperties" (viewProperty)="onViewProperty($event)"></app-list-properties>
+</div> -->
+
+<div
+  class="w-full bg-gray-100 dark:bg-gray-800 px-4 md:px-8 pt-4 pb-3 overflow-y-auto transition filter"
+  [class.blur-sm]="isNewOpen"
+  style="height:calc(100vh - 220px)"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="150"
+  [scrollWindow]="false"
+  (scrolled)="onScroll()">
+
+  <app-list-properties
+    [properties]="filteredProperties"
+    (viewProperty)="onViewProperty($event)"
+    (newProperty)="openNewModal()">
+  </app-list-properties>
+</div>
+
+<!-- Modal -->
+<app-new-property
+  *ngIf="isNewOpen"
+  (close)="closeNewModal()"
+  (submitForm)="handleCreateProperty($event)">
+</app-new-property>

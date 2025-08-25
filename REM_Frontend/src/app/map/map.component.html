@@ -1,0 +1,33 @@
+<app-snackbar></app-snackbar>
+
+<div class="flex flex-col h-full w-full bg-white text-black dark:bg-gray-800 dark:text-white">
+  
+  <!-- Title Section -->
+  <div class="p-4 text-xl font-semibold border-b border-b-gray-500 bg-gray-100 dark:bg-gray-900 shadow text-black dark:text-white">
+    Map Page 
+  </div>
+
+  <!-- Content Section: Map + Properties -->
+  <div class="flex flex-1 overflow-hidden flex-col lg:flex-row">
+
+    <!-- Map Component -->
+    <div class="flex-1 relative min-h-[60vh] lg:min-h-0">
+      
+        <!-- Leaflet Map -->
+        <div id="map" class="h-full w-full z-0"></div>
+    
+        <!-- Filter -->
+        <div class="absolute bottom-4 left-4 z-10 bg-white dark:bg-gray-800 text-black dark:text-white p-3 rounded shadow space-y-2">
+          <label *ngFor="let category of categories" class="flex items-center space-x-2">
+            <input type="checkbox" [(ngModel)]="category.visible" (change)="toggleMarkers(category.key)" />
+            <span [style.color]="category.color">⬤</span>
+            <span class="text-sm">{{ category.name }}</span>
+          </label>
+        </div> 
+    </div>
+
+    <!-- List Properties Component -->
+    <app-list-properties class="hidden lg:block w-full lg:w-[420px] h-[40vh] lg:h-auto bg-gray-100 dark:bg-gray-800 text-black dark:text-white border-t lg:border-t-0 lg:border-l border-gray-500"></app-list-properties>
+
+  </div>
+</div>

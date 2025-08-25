@@ -1,0 +1,74 @@
+<div class="flex flex-col h-full w-full bg-white text-gray-900 dark:bg-gray-800 dark:text-white">
+
+  <!-- Header -->
+  <div class="p-4 text-lg md:text-xl font-semibold bg-gray-100 dark:bg-gray-900 shadow mb-4 md:mb-6 text-gray-900 dark:text-white">
+    Settings Page
+  </div>
+
+  <app-snackbar></app-snackbar>
+
+  <div class="flex flex-col items-center px-4 md:px-0">
+
+    <!-- Theme Toggle Section -->
+    <div class="bg-white dark:bg-gray-900 p-4 md:p-6 rounded-lg shadow-md mt-4 md:mt-6 mb-6 w-full max-w-4xl border-y-2 border-blue-500 dark:border-blue-400">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-200">Change Application Theme</h2>
+
+      <div class="flex justify-between items-center mt-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-gray-800 dark:text-white text-lg">🌙 Theme Switcher</span>
+        </div>
+
+        <!-- Toggle -->
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            class="sr-only peer"
+            [checked]="isDarkMode"
+            (change)="onThemeToggle($event)"
+          >
+          <div class="w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full peer peer-checked:bg-blue-600 transition-all duration-300"></div>
+          <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full peer-checked:translate-x-full transform transition-transform duration-300"></div>
+        </label>
+
+      </div>
+    </div>
+
+    <!-- Coordinates Section -->
+    <div class="bg-white dark:bg-gray-900 p-4 md:p-6 rounded-lg shadow-md w-full max-w-4xl border-y-2 border-blue-500 dark:border-blue-400">
+
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 md:mb-6 gap-3">
+        <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-200">Change Map Coordinates</h2>
+        <button class="self-start sm:self-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+          Open Map
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex flex-wrap justify-between mb-6 gap-y-4">
+        <div class="text-gray-800 dark:text-gray-300 min-w-[48%]">
+          <div class="font-medium text-lg mb-3">Latitude: <input type="number" class="ml-2" [(ngModel)]="latitude" step="any" /></div>
+          <hr class="border-gray-300 dark:border-gray-600">
+        </div>
+        <!-- <span class="ml-2">{{ latitude }}</span> -->
+
+        <div class="text-gray-800 dark:text-gray-300 min-w-[48%]">
+          <div class="font-medium text-lg mb-3">Longitude: <input type="number" class="ml-2" [(ngModel)]="longitude" step="any" /></div>
+          <hr class="border-gray-300 dark:border-gray-600">
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <button (click)="setCoordinates()"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Set Coordinates</button>
+        <button (click)="resetCoordinates()"
+                class="bg-white dark:bg-gray-100 text-black dark:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-200 px-4 py-2 rounded">
+          Reset Coordinates
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

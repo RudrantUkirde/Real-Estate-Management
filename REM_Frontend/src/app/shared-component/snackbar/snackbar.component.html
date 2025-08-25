@@ -1,0 +1,11 @@
+<div *ngIf="snackbarService.snack$ | async as data"
+      [@snackAnimation]
+      class="absolute top-6 left-1/2 transform -translate-x-1/2 z-50 w-fit max-w-[80%] px-6 py-3 rounded shadow-lg text-white"
+      [ngClass]="{
+        'bg-green-600': data.type === 'success',
+        'bg-red-500'  : data.type === 'error',
+        'bg-blue-500' : data.type === 'info'
+      }">
+      {{ data.message }}
+</div>
+

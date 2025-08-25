@@ -1,0 +1,62 @@
+<!-- Title + View Toggle + Add Button -->
+<div class="flex items-center justify-between mb-4 dark:bg-gray-800 px-2 md:px-0">
+    <h3 class="text-lg md:text-xl font-medium text-white">List of Properties</h3>
+    <div class="flex items-center gap-2 md:gap-4">
+      <button class="p-2 rounded hover:bg-gray-700 text-gray-300">
+        <i class="fa fa-th-large"></i>
+      </button>
+      <button class="p-2 rounded hover:bg-gray-700 text-gray-300">
+        <i class="fa fa-bars"></i>
+      </button>
+      <button (click)="onNewPropertyClick()"
+              class="ml-2 bg-green-500 hover:bg-green-600 text-white px-2 md:px-3 py-1 rounded text-sm font-semibold flex items-center gap-1">
+        NEW PROPERTY <i class="fa fa-plus-circle"></i>
+      </button>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+  <ng-container *ngFor="let property of properties">
+    <div class="bg-[#23272e] dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg flex flex-col">
+      <!-- Image & Tag -->
+      <div class="relative">
+        <img [src]="property.imageUrls[0] || '/property_Images/pexels-binyamin-mellish-106399.jpg'" alt="Property" class="w-full h-40 sm:h-48 md:h-56 object-cover" />
+        <span
+          class="absolute top-0 px-3 py-2 rounded font-bold text-xs"
+          [ngClass]="{
+            'bg-green-500 text-white': property.transactionType === 'SALE',
+            'bg-yellow-400 text-gray-900': property.transactionType === 'RENT'
+          }">
+          {{ property.transactionType === 'SALE' ? 'For Sale' : 'For Rent' }}
+        </span>
+      </div>
+      <!-- Card Body -->
+      <div class="flex-1 flex flex-col p-4">
+        <div class="mb-2">
+        <span class="inline-block text-xs font-semibold px-2 py-1 rounded mt-1"
+          [ngClass]="{
+            'bg-red-600 text-white': property.propertyType === 'RESIDENTIAL',
+            'bg-purple-500 text-white': property.propertyType === 'COMMERCIAL',
+            'bg-yellow-500 text-gray-900': property.propertyType === 'INDUSTRIAL',
+            'bg-green-600 text-white': property.propertyType === 'LAND'
+          }">
+          {{ property.propertyType }} Real Estate
+        </span>
+      </div>
+        <div class="font-bold text-base text-white truncate">{{ property.title }}</div>
+        <div class="text-xs text-gray-300 mb-2 truncate">
+          {{ property.description }}
+        </div>
+        <div class="text-lg font-bold text-white mb-2">
+          {{ property.price | currency:'PHP':'symbol':'1.0-0' }}
+          <span *ngIf="property.transactionType === 'RENT'" class="text-xs font-medium text-gray-400">| Monthly</span>
+        </div>
+        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold mt-auto"
+                (click)="onView(property)">
+          VIEW PROPERTY
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+

@@ -1,0 +1,19 @@
+.property-scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Thicker & Brighter Scrollbar */
+.property-scroll-container::-webkit-scrollbar {
+  width: 10px; /* Increase thickness */
+}
+
+.property-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0;
+  border-radius: 6px;
+}
+
+.property-scroll-container::-webkit-scrollbar-track {
+  background-color: #1f2937; /* Optional: Dark track for contrast */
+}

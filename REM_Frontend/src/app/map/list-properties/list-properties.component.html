@@ -1,0 +1,49 @@
+<div
+  class="property-scroll-container p-3 md:p-4 space-y-3 md:space-y-4 overflow-y-auto"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="150"
+  [scrollWindow]="false"
+  (scrolled)="onScroll()"
+>
+  <div *ngFor="let property of properties; trackBy: trackById" 
+    class="bg-white dark:bg-gray-900 rounded-lg shadow overflow-hidden transition-transform transform hover:scale-102 duration-300"
+    (click)="onViewProperty(property.id)">
+
+    <!-- Image and Overlay Badge -->
+    <div class="relative">
+      <img 
+        [src]="property.imageUrls[0] || '/property_Images/pexels-binyamin-mellish-106399.jpg'"
+        alt="Property"
+        class="w-full h-44 md:h-52 object-cover"
+      />
+      <span 
+        class="absolute top-0 bg-green-600 text-white text-xs font-bold px-3 py-2 rounded shadow-md z-10"
+        [ngClass]="property.transactionType === 'RENT' ? 'bg-yellow-500' : 'bg-green-600'">
+        {{ property.transactionType === 'RENT' ? 'For Rent' : 'For Sale' }}
+      </span>
+    </div>
+    <div class="p-4 pt-2">
+      <div class="mb-2">
+        <span class="inline-block text-xs font-semibold px-2 py-1 rounded mt-1"
+          [ngClass]="{
+            'bg-red-600 text-white': property.propertyType === 'RESIDENTIAL',
+            'bg-purple-500 text-white': property.propertyType === 'COMMERCIAL',
+            'bg-yellow-500 text-gray-900': property.propertyType === 'INDUSTRIAL',
+            'bg-green-600 text-white': property.propertyType === 'LAND'
+          }">
+          {{ property.propertyType }} Real Estate
+        </span>
+      </div>
+      <div class="font-semibold text-base md:text-lg mb-1 truncate">{{ property.title }}</div>
+      <div class="text-[11px] md:text-xs text-gray-400 mb-2">{{ property.address }}</div>
+      <div class="text-xs md:text-sm text-gray-300 mb-2 truncate" *ngIf="property.description">{{ property.description }}</div>
+      <div class="text-base md:text-lg font-bold mb-2">&#8377;{{ property.price | number:'1.0-0' }}</div>
+      <button class="mt-2 w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition-all text-sm md:text-base"
+        (click)="onViewProperty(property.id); $event.stopPropagation()">VIEW PROPERTY</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-4 text-gray-500">Loading...</div>
+  <div *ngIf="allLoaded && properties.length > 0" class="text-center py-4 text-gray-400">All properties loaded.</div>
+</div>

@@ -1,0 +1,92 @@
+<div class="bg-gray-900 dark:bg-gray-900 text-white rounded-lg shadow-md mb-5">
+  <!-- Header -->
+  <div class="bg-blue-700 px-6 py-3 rounded-t-lg flex items-center text-white text-xl font-semibold">
+    <span class="mr-2">Monthly payments</span>
+  </div>
+  <!-- Body -->
+  <div class="p-4 md:p-6 pt-5">
+    <!-- Price -->
+    <div class="flex items-center mb-4 flex-wrap gap-3">
+      <span class="w-8 flex-shrink-0 text-2xl opacity-70 mr-3">
+        <i class="fa fa-money-bill-wave"></i>
+      </span>
+      <div class="flex-1">
+        <div class="text-sm text-gray-400">Price:</div>
+        <input type="number"
+          [(ngModel)]="price"
+          (input)="calculateMonthlyPayment()"
+          class="bg-gray-800 text-white rounded px-2 py-1 w-28 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold"
+        />
+      </div>
+      <button class="ml-3 opacity-70 hover:opacity-100" (click)="price=0; calculateMonthlyPayment()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <hr class="border-gray-600 mb-4" />
+
+    <!-- Down Payment -->
+    <div class="flex items-center mb-4 flex-wrap gap-3">
+      <span class="w-8 flex-shrink-0 text-2xl opacity-70 mr-3">
+        <i class="fa fa-university"></i>
+      </span>
+      <div class="flex-1">
+        <div class="text-sm text-gray-400">Down Payment:</div>
+        <input type="number"
+          [(ngModel)]="downPayment"
+          (input)="calculateMonthlyPayment()"
+          class="bg-gray-800 text-white rounded px-2 py-1 w-28 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+        />
+      </div>
+      <button class="ml-3 opacity-70 hover:opacity-100" (click)="downPayment=0; calculateMonthlyPayment()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <hr class="border-gray-600 mb-4" />
+
+    <!-- Interest and Term -->
+    <div class="flex items-center mb-4 flex-wrap gap-3">
+      <span class="w-8 flex-shrink-0 text-xl opacity-70 mr-3">
+        <i class="fa fa-percent"></i>
+      </span>
+      <div class="flex-1">
+        <div class="text-xs text-gray-400 mb-1">Interest Rate:</div>
+        <input type="number"
+          [(ngModel)]="rate"
+          (input)="calculateMonthlyPayment()"
+          class="bg-gray-800 text-white rounded px-2 py-1 w-16 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <span class="w-8 flex-shrink-0 text-xl opacity-70 mx-3">
+        <i class="fa fa-calendar-alt"></i>
+      </span>
+      <div class="flex-1">
+        <div class="text-xs text-gray-400 mb-1">Loan Term:</div>
+        <input type="number"
+          [(ngModel)]="term"
+          (input)="calculateMonthlyPayment()"
+          class="bg-gray-800 text-white rounded px-2 py-1 w-16 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+    <hr class="border-gray-600 mb-5" />
+
+    <!-- Monthly -->
+    <div class="flex items-center mb-1">
+      <span class="w-8 flex-shrink-0 text-xl opacity-70 mr-3">
+        <i class="fa fa-money-check-alt"></i>
+      </span>
+      <div class="flex-1">
+        <div class="text-sm text-gray-400">Monthly</div>
+        <div class="text-2xl font-extrabold tracking-wider text-white mt-1">
+          {{ monthlyPayment | number:'1.0-0' }}
+        </div>
+      </div>
+    </div>
+    <!-- Mortgage Calculator Link/Button -->
+    <div class="pt-5 text-center">
+      <a class="text-blue-400 hover:underline text-base cursor-pointer">
+        Mortgage Calculator
+      </a>
+    </div>
+  </div>
+</div>

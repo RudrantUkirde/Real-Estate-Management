@@ -1,0 +1,100 @@
+<!-- Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/40">
+  <!-- Modal Card with animation -->
+
+  <app-snackbar></app-snackbar>
+  
+  <div
+    class="relative w-full max-w-md bg-gray-900 border border-gray-700 rounded-2xl shadow-xl px-8 py-8 flex flex-col items-center
+      animate-fadeInScale"
+    style="animation: fadeInScale 0.32s cubic-bezier(0.32,1.56,0.64,1) both;"
+  >
+    <h2 class="text-2xl font-bold text-white text-center mb-8">Edit Profile</h2>
+    
+    <!-- Profile Image Preview -->
+    <div class="flex flex-col items-center mb-4">
+      <img
+        [src]="imagePreview || editableUser.profileImage || '/Images/default_image.jpg'"
+        alt="Profile Preview"
+        class="w-20 h-20 rounded-full object-cover border-2 border-blue-400 shadow mb-1"
+      />
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="w-full flex flex-col gap-6" enctype="multipart/form-data">
+      <!-- Username -->
+      <div>
+        <label class="block text-gray-300 font-medium mb-1" for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+          [(ngModel)]="editableUser.username"
+          name="username"
+          required
+        />
+      </div>
+      <!-- Email -->
+      <div>
+        <label class="block text-gray-300 font-medium mb-1" for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+          [(ngModel)]="editableUser.email"
+          name="email"
+          required
+        />
+      </div>
+      <!-- Contact Number -->
+      <div>
+        <label class="block text-gray-300 font-medium mb-1" for="contactNumber">Contact Number</label>
+        <input
+          id="contactNumber"
+          type="tel"
+          class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+          [(ngModel)]="editableUser.contactNumber"
+          name="contactNumber"
+        />
+      </div>
+      <!-- Profile Image File -->
+      <div>
+        <label class="block text-gray-300 font-medium mb-1" for="profileImage">Profile Image</label>
+        <input
+          id="profileImage"
+          type="file"
+          accept="image/*"
+          class="w-full px-3 py-1 bg-gray-800 border border-gray-700 text-white rounded"
+          (change)="onProfileImageSelected($event)"
+        />
+        <span class="text-xs text-gray-400">Accepted: PNG, JPG, JPEG, GIF (max 5MB)</span>
+      </div>
+      <!-- Action Buttons -->
+      <div class="flex gap-4 mt-4 justify-center">
+        <button type="button"
+                class="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-lg transition font-semibold"
+                (click)="onCancel()">
+          Cancel
+        </button>
+        <button type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition font-semibold">
+          Update
+        </button>
+      </div>
+    </form>
+    <!-- Optional close X in top right -->
+    <button (click)="onCancel()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 text-xl">
+      &times;
+    </button>
+  </div>
+</div>
+
+<!-- Tailwind animation (add in styles.css or in your global styles) -->
+<style>
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95);}
+  to { opacity: 1; transform: scale(1);}
+}
+.animate-fadeInScale {
+  animation: fadeInScale 0.34s cubic-bezier(0.32,1.56,0.64,1) both;
+}
+</style>

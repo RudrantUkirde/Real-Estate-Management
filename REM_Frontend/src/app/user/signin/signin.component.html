@@ -1,0 +1,83 @@
+<body class="relative min-h-screen bg-gray-800 flex">
+
+  <!-- Main content area, fills the rest of the space -->
+  <div class="flex-1 flex flex-col min-h-screen">
+
+    <!-- Top bar -->
+    <div class="w-full bg-gray-900 px-4 md:px-8 py-3 md:py-4 shadow z-10 border-b dark:border-b-gray-500">
+      <span class="text-white text-lg md:text-xl font-normal">Sign In Page</span>
+    </div>
+
+    
+    <!-- Center content (Sign In card) -->
+    <div class="flex-1 flex items-center justify-center px-4">
+
+      <app-snackbar></app-snackbar>
+
+      <div class="w-full max-w-sm sm:max-w-md bg-white/90 dark:bg-gray-900 p-4 md:p-6 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 backdrop-blur-sm transition-transform transform hover:scale-103 duration-300">
+
+        <!-- Form Start -->
+        <form [formGroup]="loginForm"
+              class="w-full max-w-sm mx-auto bg-transparent p-4 rounded-md"
+              novalidate>
+
+          <h1 class="text-lg md:text-2xl font-bold text-center text-indigo-600 dark:text-indigo-400 mb-4">Login Here!!!!</h1>
+
+          <!-- 🔴 Preview Box -->
+          <div class="bg-red-100 dark:bg-red-400 border border-red-400 text-red-800 px-3 md:px-4 py-3 rounded mb-4 text-xs md:text-sm" role="alert">
+            <strong class="font-bold">For Preview</strong>
+            <p>Email: <span class="underline text-red-800">test&#64;email.com</span></p>
+            <p>Password: <span class="italic underline text-red-800">test&#64;1234</span></p>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-4 group">
+            <label class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 group-hover:text-indigo-600 group-hover:text-base transition-all duration-300" for="email">Email</label>
+            <input [ngClass]="{'border-red-500': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+                   class="w-full px-3 py-2 text-gray-700 dark:text-white border bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-indigo-500"
+                   type="email" formControlName="email" placeholder="example@email.com" required email>
+            @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+              <div class="text-red-500 text-xs md:text-sm mt-1">*Please Enter Valid Email..</div>
+            }
+          </div>
+
+          <!-- Password -->
+          <div class="mb-4 group">
+            <label class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 group-hover:text-indigo-600 group-hover:text-base transition-all duration-300" for="password">
+              Password <i class="fa-solid fa-eye" (click)="togglePasswordVisibility()"></i>
+            </label>
+            <input [ngClass]="{'border-red-500': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+                   class="w-full px-3 py-2 text-gray-700 dark:text-white border bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-indigo-500"
+                   type="{{ hidePassword ? 'password' : 'text'}}" formControlName="password" placeholder="password" required minlength="6">
+            @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+              <div class="text-red-500 text-xs md:text-sm mt-1">*Password required..</div>
+            }
+          </div>
+
+          <!-- Submit -->
+          <button type="submit"
+                  class="w-full mt-6 md:mt-8 bg-indigo-500 text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-indigo-600 transition-transform transform hover:scale-105 duration-300 flex items-center justify-center gap-2"
+                  [disabled]="isLoading"
+                  (click)="onSubmit()">
+
+            <!-- Spinner -->
+            <div *ngIf="isLoading"
+                class="h-4 w-4 border-2 border-white border-b-transparent rounded-full animate-spin"></div>
+
+            <!-- Button Text -->
+            <span>{{ isLoading ? 'Logging in...' : 'Login' }}</span>
+          </button>
+
+        </form>
+
+        <!-- Signup Link -->
+        <p class="text-center text-sm text-gray-700 dark:text-gray-300 mt-4">
+          Don't have an account?
+          <a routerLink="/user/register" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-500 font-medium transition-colors duration-200">
+            Sign up here
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
